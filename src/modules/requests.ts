@@ -81,7 +81,7 @@ export const makeRequest = async (
       let response = (error as { response?: { status: number, headers: { [key: string]: any } } }).response;
 
       if (response && response.status === 429) {
-        const retryAfter = parseInt(response.headers['retry-after'] || '60', 10);
+        const retryAfter = parseInt(response.headers['retry-after'] || '60');
         lockUntil = current + retryAfter;
         await delay(retryAfter);
         return makeRequest(method, url, headers, options);

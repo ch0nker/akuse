@@ -3,12 +3,33 @@ import './styles/AnimeEntry.css';
 import { faCalendar, faCircleDot } from '@fortawesome/free-regular-svg-icons';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { getAvailableEpisodes, getParsedFormat, getParsedSeasonYear, getTitle } from '../../modules/utils';
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import AnimeModal from './modals/AnimeModal';
+import { getProgress } from '../../modules/utils';
+
+const EpisodeCount: React.FC<{
+  listAnimeData?: ListAnimeData;
+}> = ({ listAnimeData }) => {
+  if(!listAnimeData)
+    return <></>;
+
+  const media = listAnimeData.media;
+  const progress = Math.max(0, getProgress(media) as number);
+  const episodes = media.nextAiringEpisode === null ? media.episodes : (media.nextAiringEpisode?.episode as number) - 1;
+  if(episodes === 0)
+    return <></>;
+  const episode_count = (episodes - progress);
+
+  return (
+    <span className='episode-count'>
+      {episode_count}
+    </span>
+  )
+};
 
 const StatusDot: React.FC<{
   listAnimeData?: ListAnimeData | undefined;
@@ -85,6 +106,7 @@ const AnimeEntry: React.FC<{
                 : 'transparent',
             }}
           >
+            <EpisodeCount listAnimeData={listAnimeData}/>
             <img
               src={listAnimeData.media.coverImage?.large}
               alt="anime cover"
