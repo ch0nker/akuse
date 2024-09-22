@@ -387,11 +387,14 @@ export const getAnimeInfo = async (animeId: any): Promise<Media> => {
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + STORE.get('access_token'),
+  var headers: {[key: string]: string} = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-  };
+  }
+
+  if (STORE.has('access_token')) {
+    headers.Authorization = 'Bearer' + STORE.get('access_token')
+  }
 
   var variables = {
     id: animeId,

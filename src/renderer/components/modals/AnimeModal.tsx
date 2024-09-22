@@ -90,6 +90,7 @@ const AnimeModal: React.FC<AnimeModalProps> = ({
   const [relatedAnime, setRelatedAnime] = useState<ListAnimeData[]>();
 
   const getRelatedAnime = async () => {
+    console.log(listAnimeData.media?.relations)
     if(listAnimeData.media?.relations === undefined) {
       /* If you click on a related anime this'll run. */
       listAnimeData = {
@@ -105,7 +106,7 @@ const AnimeModal: React.FC<AnimeModalProps> = ({
     if(!edges) return;
 
     const list = edges.filter((value) => value.node.type === MediaTypes.Anime).map((value) => {
-      value.node.format = value.node.format === 'TV' ? value.relationType as MediaFormat : value.node.format;
+      value.node.format = value.node.format?.substring(0, 2) === 'TV' ? value.relationType as MediaFormat : value.node.format;
 
       return value;
     });

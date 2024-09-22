@@ -370,10 +370,13 @@ export const getParsedFormat = (format: MediaFormat | RelationType | undefined) 
       return 'ONA';
     case 'MUSIC':
       return 'Music';
+    /* Lazy related stuff */
     case 'SEQUEL':
       return 'Sequel';
     case 'PREQUEL':
       return 'Prequel';
+    case 'CHARACTER':
+      return 'Character'
     case 'ALTERNATIVE':
       return 'Alternative';
     default:

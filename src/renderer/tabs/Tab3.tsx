@@ -140,8 +140,11 @@ const Tab3: React.FC = () => {
     const position = target.scrollTop;
     const height = target.scrollHeight - target.offsetHeight;
     const current = Date.now() / 1000;
+    const bottomOffset = Math.floor(height - position)
 
-    if(Math.floor(height - position) > 1 || current - lastUpdate < 1)
+    console.log(bottomOffset);
+
+    if(bottomOffset > 1 || current - lastUpdate < 1)
       return;
 
     setLastUpdate(lastUpdate);

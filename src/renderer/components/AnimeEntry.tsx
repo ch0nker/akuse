@@ -23,6 +23,8 @@ const EpisodeCount: React.FC<{
   if(episodes === 0)
     return <></>;
   const episode_count = (episodes - progress);
+  if(episode_count === 0)
+    return <></>;
 
   return (
     <span className='episode-count'>
@@ -106,7 +108,7 @@ const AnimeEntry: React.FC<{
                 : 'transparent',
             }}
           >
-            <EpisodeCount listAnimeData={listAnimeData}/>
+            {/* <EpisodeCount listAnimeData={listAnimeData}/> */}
             <img
               src={listAnimeData.media.coverImage?.large}
               alt="anime cover"
